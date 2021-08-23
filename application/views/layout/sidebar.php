@@ -69,7 +69,7 @@ $blog_menu = array(
         "Tags" => site_url("CMS/blogTag"),
     ),
 );
-//array_push($menu_control, $blog_menu);
+array_push($menu_control, $blog_menu);
 
 
 

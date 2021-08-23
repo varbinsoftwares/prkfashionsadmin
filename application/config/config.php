@@ -25,17 +25,14 @@ $islocal = false;
 
 if (strpos($baselink, '192.168')) {
     $islocal = true;
-<<<<<<< HEAD
-    $baselinkmain = 'http://' . $baselinkurl . '/maharajaadmin';
+   
 } elseif (strpos($baselink, 'localhost')) {
     $islocal = true;
-    $baselinkmain = 'http://' . $baselinkurl . '/maharajaadmin';
-=======
+   
     $baselinkmain = 'http://' . $baselinkurl . '/prkfashionsadmin';
 } elseif (strpos($baselink, 'localhost')) {
     $islocal = true;
     $baselinkmain = 'http://' . $baselinkurl . '/prkfashionsadmin';
->>>>>>> 404db54b0afce9741c3e008a502a59e9ce7adff8
 } else {
     $baselinkmain = 'https://' . $baselinkurl . '/';
 }

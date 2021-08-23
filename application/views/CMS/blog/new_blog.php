@@ -45,16 +45,15 @@ $this->load->view('layout/topmenu');
                     <!-- begin email form -->
                     <form action="#" method="post" enctype="multipart/form-data">
                         <!-- begin email to -->
-                        <label class="control-label" style='font-size: 15px;'>Category: <span id="category_name"><?php echo $categories[0]['category_name'];?></span></label>
+                        <label class="control-label" style='font-size: 15px;'>Category: <span id="category_name"><?php echo $categories[1]['category_name'];?></span></label>
                         <div class="m-b-15">
                             <input type="hidden" class="form-control" name="category_id" id='category_id' required="" value="<?php echo $categories[0]['id'];?>" />
                         </div>
                         
-                        
                         <label class="control-label">Add Image:</label>
                         <div class="m-b-15">
                             <div class="btn-group" role="group" aria-label="..." style="    width: 100%;">
-                                <span class="btn btn-success col fileinput-button" ">
+                                <span class="btn btn-success col fileinput-button" >
                                     <i class="fa fa-plus"></i>
                                     <span>Add files...</span>
                                     <input type="file" name="picture" required="">

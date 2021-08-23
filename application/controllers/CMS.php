@@ -22,7 +22,7 @@ class CMS extends CI_Controller {
         $data['title'] = "Blog Categories";
         $data['description'] = "Blog Categories";
         $data['form_title'] = "Add Category";
-        $data['table_name'] = 'style_category';
+        $data['table_name'] = 'style_category'; 
         $form_attr = array(
             "category_name" => array("title" => "Category Name", "required" => true, "place_holder" => "Category Name", "type" => "text", "default" => ""),
             "parent_id" => array("title" => "", "required" => false, "place_holder" => "", "type" => "hidden", "default" => ""),
@@ -110,7 +110,7 @@ class CMS extends CI_Controller {
                 $config['overwrite'] = TRUE;
                 $ext1 = explode('.', $_FILES['picture']['name']);
                 $ext = strtolower(end($ext1));
-                $file_newname = $temp1 . "$userid." . $ext;
+                $file_newname = $temp1 . $ext;
                 $picture = $file_newname;
                 $config['file_name'] = $file_newname;
                 //Load upload library and initialize configuration
