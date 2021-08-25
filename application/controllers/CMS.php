@@ -350,8 +350,75 @@ class CMS extends CI_Controller {
         }
 
         $this->load->view('CMS/lookbook/lookbook_edit', $data);
+    } 
+
+    public function AddSlide(){
+
+        $data= array();
+
+       $line1= $this->input->post("line1");
+       $line2= $this->input->post("line2");
+       $btn_title= $this->input->post("btn_title");
+       $btn_link= $this->input->post("btn_link");
+       $status= $this->input->post("status");
+       $time= $this->input->post("time");
+       $date= $this->input->post("date");
+
+       $config['upload_path'] = 'assets/slider_images';
+       $config['allowed_types'] = '*';
+
+        if (isset($_POST['submit_data'])) {
+            $picture = '';
+            if (!empty($_FILES['picture']['name'])) {
+                $temp1 = rand(100, 1000000);
+                $config['overwrite'] = TRUE;
+                $ext1 = explode('.', $_FILES['picture']['name']);
+                $ext = strtolower(end($ext1));
+                $file_newname = $temp1 . $ext;
+                $picture = $file_newname;
+                $config['file_name'] = $file_newname;
+                //Load upload library and initialize configuration
+                $this->load->library('upload', $config);
+                $this->upload->initialize($config);
+                if ($this->upload->do_upload('picture')) {
+                    $uploadData = $this->upload->data();
+                    $picture = $uploadData['file_name'];
+                } else {
+                    $picture = '';
+                }
+            }
+
+            $slideArray = array(
+                "image" => $picture,
+                "line_1" => $line1,
+                "line_2" => $line2,
+                "button_title" => $btn_title,
+                "button_link" => $btn_link,
+                "status" => $status,
+                "active_time" => $time,
+                "active_date" => $date,
+            );
+
+           $data['slideArray']= $this->Curd_model->insert('settings_slider', $slideArray);
+            redirect("CMS/AddSlide");
+        }
+
+        
+        $this->load->view('CMS/Home_slider/AddSlide');
     }
 
+    function sliderList() {
+        $slide_data = $this->Curd_model->get('settings_slider', 'asc');
+        $data['slide_data'] = $slide_data;
+        $this->load->view('CMS/Home_slider/Sliders', $data);
+    }
+    function sliderEdit($id) {
+        $slide_data = $this->Curd_model->get_single('settings_slider', $id);
+        $data['slide_data'] = $slide_data;
+        $this->load->view('CMS/Home_slider/EditSlide', $data);
+    }
+
+   
     public function socialLink() {
         $data = array();
         $data['title'] = "Social Link";

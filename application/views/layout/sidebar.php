@@ -85,6 +85,20 @@ $lookbook_menu = array(
 );
 array_push($menu_control, $lookbook_menu);
 
+$slide_menu = array(
+    "title" => "Slider Management",
+    "icon" => "fa fa-image",
+    "active" => "",
+    "sub_menu" => array(
+        "Add slider" => site_url("CMS/AddSlide"),
+        "Slider list" => site_url("CMS/Sliderlist"),
+        
+
+//        "Tags" => site_url("CMS/blogTag"),
+    ),
+);
+array_push($menu_control, $slide_menu);
+
 //
 //$cms_menu = array(
 //    "title" => "Content Management",
