@@ -27,15 +27,7 @@ $this->load->view('layout/topmenu');
                    
                     <h2>Add Slider</h2>
 
-                    <div class="p-10">
-                        <select name="slide_number" class="p-5" style ="width:100px;" id="">
-                            <option value="slide_1">Select Slide</option>
-                            <option value="slide_1">Slide 1</option>
-                            <option value="slide_2">Slide 2</option>
-                            <option value="slide_3">Slide 3</option>
-                        </select>
-                    </div>
-
+                   
                     <form action="#" method="post" enctype="multipart/form-data">
                 
                         <!-- begin email to -->
@@ -54,6 +46,10 @@ $this->load->view('layout/topmenu');
                                 <label class="control-label">Active Date:</label>
                                 <div class="m-b-15">
                                    <input type="date" class="form-control" name="date" required="" />
+                                </div>
+                                <label class="control-label">Index:</label>
+                                <div class="m-b-15">
+                                   <input type="index" class="form-control" name="index" required="" />
                                 </div>
                                 <label class="control-label">Add Slide Image:</label>
                                 <div class="m-b-15">

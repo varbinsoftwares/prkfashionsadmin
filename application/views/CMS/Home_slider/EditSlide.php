@@ -27,16 +27,8 @@ $this->load->view('layout/topmenu');
                    
                     <h2>Edit Slider</h2>
 
-                    <div class="p-10">
-                        <select name="slide_number" class="p-5" style ="width:100px;" id="">
-                            <option value="slide_1">Select Slide</option>
-                            <option value="slide_1">Slide 1</option>
-                            <option value="slide_2">Slide 2</option>
-                            <option value="slide_3">Slide 3</option>
-                        </select>
-                    </div>
-
-                    <form action="#" method="post" enctype="multipart/form-data">
+                   
+                    <form action="<?php echo site_url("CMS/UpdateSlide/"). $slide['id'];?>" method="post" enctype="multipart/form-data">
                 
                         <!-- begin email to -->
                        <div class="row">
@@ -44,50 +36,70 @@ $this->load->view('layout/topmenu');
                                 <label class="control-label">First Line Detail:</label>
                                 <div class="m-b-15">
                                
-                                    <textarea  class="textarea form-control"  id="wysihtml5" placeholder="Enter text ..." rows="8"  value= "" name="line1" required=""></textarea>
+                        <input  class ="textarea form-control"  id="wysihtml5" type="textarea" name="line1"  rows="8"  value= "<?php echo $slide['line_1'];?>" />
                                 </div>
                                 <!-- end email subject -->
                                 <!-- begin email content -->
                                 <label class="control-label">Button Title</label>
                                 <div class="m-b-15">
-                                   <input type="text" value= "" class="form-control" name="btn_title" required="" />
+                                   <input type="text" value= "<?php echo $slide['button_title'];?>" class="form-control" name="btn_title"  />
                                 </div>
                                 <label class="control-label">Active Date:</label>
                                 <div class="m-b-15">
-                                   <input type="date" class="form-control" name="date" required="" />
+                                   <input type="date" value="<?php echo $slide['active_date'];?>" class="form-control" name="date"  />
                                 </div>
-                                <label class="control-label">Add Slide Image:</label>
+                                <label class="control-label">Index:</label>
                                 <div class="m-b-15">
-                                  <div class="btn-group" role="group" aria-label="..." style="    width: 100%;">
+                                   <input type="text" value="<?php echo $slide['index'];?>" class="form-control" name="index"  />
+                                </div>
+                                <label class="control-label">Add New Slide Image:</label>
+                                
+                                <div class="m-b-15">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                        <div class="btn-group" role="group" aria-label="..." style="    width: 100%;">
                                     <span class="btn btn-success col fileinput-button" >
                                         <i class="fa fa-plus"></i>
                                         <span>Add files...</span>
-                                        <input type="file" name="picture" required="">
+                                    
+                                        <input type="file"value="<?php echo $slide['picture'];?>" name="picture" >
                                     </span>
 
                                    </div>
-                                </div>
-                                 
+                                        </div>
+                                        <div class="col-lg-6">
+                                        <?php  if ($slide['image'] != "" && file_exists('./assets/slider_images/'.$slide['image'])) {?>
+
+                                         <img hieght="100px" width="100px" src="<?php echo base_url().'assets/slider_images/'.$slide['image']?>" alt="slider image">
+
+                                         <?php }?>
+                                         <?php echo $slide['image'];?>
+                                        </div>
+
+                                    </div>
+                                  
+                                  
+                                </div>                                
 
                             </div>
                             <div class="col-lg-6 col-sm-12">
                             <label class="control-label">Second Line Detail:</label>
                                 <div class="m-b-15">
-                                    <textarea  class="textarea form-control" id="wysihtml5" placeholder="Enter text ..." rows="8" name="line2" required=""></textarea>
+                                    <input  class="textarea form-control" id="wysihtml5" placeholder="Enter text ..." rows="8" type="textarea" value="<?php echo $slide['line_2'];?>" name="line2" />
                                  </div>
                             <label class="control-label">Button Link</label>
                                 <div class="m-b-15">
-                                   <input type="link" class="form-control" name="btn_link" required="" />
+                                   <input type="link" value="<?php echo $slide['button_link'];?>"  class="form-control" name="btn_link"  />
                                 </div> 
                             <label class="control-label">Active Time:</label>
                                 <div class="m-b-15">
-                                   <input type="time" class="form-control" name="time" required="" />
+                                   <input type="time" value="<?php echo $slide['active_time'];?>" class="form-control" name="time" required="" />
                                 </div>          
     
                             <label class="control-label">Status:</label>
                                 <div class="m-b-15">
-                                   <input type="radio"  name="status" value="Active" required="" />  Active <br>
-                                   <input type="radio"  name="status" value="Block" required="" />  Block
+                                   <input type="radio"  value="<?php echo $slide['status'];?>"  name="status" value=""   required="" <?php echo ($slide['status']== 'Active')? 'checked': ''; ?> >  Active <br>
+                                   <input type="radio"  value="<?php echo $slide['status'];?>" name="status" value="" required="" <?php echo ($slide['status']== 'Block')? 'checked': ''; ?> >  Block
                                 </div>  
                             
                            </div>
@@ -97,7 +109,7 @@ $this->load->view('layout/topmenu');
 
                         <!-- end email content -->
                         <div class="colspan-2">
-                        <button type="submit" name="submit_data" class="btn btn-primary p-l-40 p-r-40 " >Submit</button>
+                        <button type="submit" name="update" class="btn btn-primary p-l-40 p-r-40 " >Update</button>
 
                         </div>
                     </form>

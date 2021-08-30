@@ -26,52 +26,54 @@ $this->load->view('layout/topmenu');
                 <div class="p-30 bg-white">
                     <!-- begin  form -->
                    
-                    <h2>Slider List</h2>
+                    <h2>All User Reviews </h2>
 
                     <table class="table">
                         <thead>
                             <tr>
                             <th scope="col">Sr. no.</th>
-                            <th scope="col">Line1</th>
-                            <th scope="col">Line2</th>
-                            <th scope="col">Button Title</th>
-                            <th scope="col">Button Link</th>
-                            <th scope="col">Image</th>
-                            <th scope="col">Status</th>
-                            <th scope="col ">Index</th>
-                            <th scope="col">Date</th>
-                            <th scope="col">Time</th>
-                            <th scope="col">Action</th>
+                            <th scope="col">Product_Id</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Comment</th>
+                            <th scope="col">Rating</th>
+                            <th scope="col">Rating Date</th>
+                            <th scope="col ">Rating Time</th>
+                            <th scope="col ">Status</th>
+                            <th scope="col">Status Action</th>
+                        
                             
                              </tr>
                         </thead>
                         <tbody>
-                            <?php $i=1; foreach ($slide_data as $key => $values) {?>
+                            <?php $i=1; foreach( $review_data as $key => $value)  {?>
                             <tr>
                             <th scope="row"><?php echo $i++; ?></th>
-                            <td><?php echo $values['line_1']; ?></td>
-                            <td><?php echo $values['line_2']; ?></td>
-                            <td><?php echo $values['button_title']; ?></td>
-                            <td><?php echo $values['button_link']; ?></td>
-                            <td>
-                               <?php  if ($values['image'] != "" && file_exists('./assets/slider_images/'.$values['image'])) {?>
+                            <td><?php echo $value['product_id'];?></td>
+                            <td><?php echo $value['name'];?></td>
+                            <td><?php echo $value['email'];?></td>
+                            <td><?php echo $value['comment'];?></td>
+                            <td><?php echo $value['rating'];?></td>
+                            <td><?php echo $value['review_date'];?></td>
+                            <td><?php echo $value['review_time'];?></td>
+                            <td><?php if ($value['status']=='Approved'){?>
+                                <b class="text-success"><?php echo $value['status']; } 
 
-                                   <img hieght="100px" width="100px" src="<?php echo base_url().'assets/slider_images/'.$values['image']?>" alt="slider image">
-                                   <?php }?>
-                                   <?php echo $values['image'];?>
+                                else {?><b class="text-danger"><?php echo $value['status']; }?></b>
                             </td>
-                            <td><?php echo $values['status']; ?></td>
-                            <td><?php echo $values['index']; ?></td>
-                            <td><?php echo $values['active_date']; ?></td>
-                            <td><?php echo $values['active_time']; ?></td>
+                            <form action="<?php echo site_url('CMS/reviewAction/') .$value['id'];?>" method="post">
                             
-                            <td>
-                                <a href="<?php echo site_url("CMS/SliderEdit/"). $values['id'];?>" class="btn btn-sm btn-success"> <i class="fa fa-edit"></i> </a>
-                                <a href="<?php echo site_url("CMS/deleteSlide/"). $values['id'];?>" class="btn btn-sm btn-danger"> <i class="fa fa-trash"></i> </a>
+                            <input type="hidden" name="appr" value="Approved">
+                            <input type="hidden" name="rjt" value="Rejected">
+                            
+                            <td> <button type="submit" name="approve" class="btn btn-sm btn-success">Approve </button>
+                            <button  type="submit" name="reject" class="btn btn-sm btn-danger">Reject </button> 
                             </td>
+                            </form>
                             
                             </tr>
-                            <?php }?>
+                            <?php  }  ?>
+                           
                             
                         </tbody>
                         </table>

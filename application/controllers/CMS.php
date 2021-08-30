@@ -298,6 +298,37 @@ class CMS extends CI_Controller {
         $this->load->view('CMS/lookbook/new_lookbook', $data);
     }
 
+    function reviewList(){
+
+        $review_data = $this->Curd_model->get('product_review', 'desc');
+        $data['review_data'] = $review_data;
+        $this->load->view('CMS/Review/review_list' , $data);
+
+    }
+    function reviewAction($id){
+         $sid= $id;
+         $astatus = $this->input->post("appr");
+         $rstatus = $this->input->post("rjt");
+         if (isset($_POST['approve'])) {
+            $data=array('status'=> $astatus);
+                     $this->db->where('id',$sid);
+            $result = $this->db->update('product_review',$data);
+
+            redirect('CMS/reviewList');
+                    
+         }
+         if (isset($_POST['reject'])) {
+            $data=array('status'=> $rstatus);
+                    $this->db->where('id',$sid);
+            $result = $this->db->update('product_review',$data);   
+
+            redirect('CMS/reviewList');
+         }
+         
+     }
+    
+    
+
     function lookbookList() {
         $blog_data = $this->Curd_model->get('lookbook', 'desc');
         $data['blog_data'] = $blog_data;
@@ -363,7 +394,7 @@ class CMS extends CI_Controller {
        $status= $this->input->post("status");
        $time= $this->input->post("time");
        $date= $this->input->post("date");
-
+       $index= $this->input->post("index");
        $config['upload_path'] = 'assets/slider_images';
        $config['allowed_types'] = '*';
 
@@ -374,7 +405,7 @@ class CMS extends CI_Controller {
                 $config['overwrite'] = TRUE;
                 $ext1 = explode('.', $_FILES['picture']['name']);
                 $ext = strtolower(end($ext1));
-                $file_newname = $temp1 . $ext;
+                $file_newname = $temp1 ;
                 $picture = $file_newname;
                 $config['file_name'] = $file_newname;
                 //Load upload library and initialize configuration
@@ -395,11 +426,12 @@ class CMS extends CI_Controller {
                 "button_title" => $btn_title,
                 "button_link" => $btn_link,
                 "status" => $status,
+                "index"=> $index,
                 "active_time" => $time,
                 "active_date" => $date,
             );
 
-           $data['slideArray']= $this->Curd_model->insert('settings_slider', $slideArray);
+           $data['slideArray']= $this->Curd_model->insert('settings_slider', $slideArray,);
             redirect("CMS/AddSlide");
         }
 
@@ -407,18 +439,88 @@ class CMS extends CI_Controller {
         $this->load->view('CMS/Home_slider/AddSlide');
     }
 
-    function sliderList() {
+    public function sliderList() {
         $slide_data = $this->Curd_model->get('settings_slider', 'asc');
         $data['slide_data'] = $slide_data;
         $this->load->view('CMS/Home_slider/Sliders', $data);
     }
-    function sliderEdit($id) {
-        $slide_data = $this->Curd_model->get_single('settings_slider', $id);
-        $data['slide_data'] = $slide_data;
-        $this->load->view('CMS/Home_slider/EditSlide', $data);
+    public  function sliderEdit($id) {
+       $sid=$id;
+      $this->db->where('id', $sid);
+      $query = $this->db->get('settings_slider');
+      $slide = $query->row_array();
+      $data=array();
+      $data['slide']=$slide;
+      $this->load->view('CMS/Home_slider/EditSlide', $data);
+    }
+    public function UpdateSlide($id){
+
+        $data= array();
+
+       $line1= $this->input->post("line1");
+       $line2= $this->input->post("line2");
+       $btn_title= $this->input->post("btn_title");
+       $btn_link= $this->input->post("btn_link");
+       $status= $this->input->post("status");
+       $time= $this->input->post("time");
+       $date= $this->input->post("date");
+       $index= $this->input->post("index");
+       $config['upload_path'] = 'assets/slider_images';
+       $config['allowed_types'] = '*';
+
+        if (isset($_POST['update'])) {
+            $picture = '';
+            if (!empty($_FILES['picture']['name'])) {
+                $temp1 = rand(100, 1000000);
+                $config['overwrite'] = TRUE;
+                $ext1 = explode('.', $_FILES['picture']['name']);
+                $ext = strtolower(end($ext1));
+                $file_newname = $temp1;
+                $picture = $file_newname;
+                $config['file_name'] = $file_newname;
+                //Load upload library and initialize configuration
+                $this->load->library('upload', $config);
+                $this->upload->initialize($config);
+                if ($this->upload->do_upload('picture')) {
+                    $uploadData = $this->upload->data();
+                    $picture = $uploadData['file_name'];
+                } else {
+                    $picture = '';
+                }
+            }
+
+            $slideArray = array(
+                "image" => $picture,
+                "line_1" => $line1,
+                "line_2" => $line2,
+                "button_title" => $btn_title,
+                "button_link" => $btn_link,
+                "status" => $status,
+                "index"=> $index,
+                "active_time" => $time,
+                "active_date" => $date,
+            );
+                $this->db->where('id', $id);
+           $data['slideArray']= $this->db->update('settings_slider', $slideArray);
+            redirect("CMS/sliderList");
+        }
+
+    }
+    public function deleteSlide($id){
+ $confirm=" <script type=text/javascript>
+  var x= confirm('Are you sure to delete record?')
+  if (x){
+      return true;
+  } 
+  </script>";
+        $sid=$id;
+    if($confirm){
+        $this->db->where('id', $sid);
+       $delete= $this->db->delete('settings_slider');
+        redirect("CMS/sliderList");
+    }
     }
 
-   
     public function socialLink() {
         $data = array();
         $data['title'] = "Social Link";

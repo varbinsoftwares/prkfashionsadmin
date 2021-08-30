@@ -71,6 +71,17 @@ $blog_menu = array(
 );
 array_push($menu_control, $blog_menu);
 
+$review_menu = array(
+    "title" => "Review Management",
+    "icon" => "fa fa-edit",
+    "active" => "",
+    "sub_menu" => array(
+        "All Reviews" => site_url("CMS/reviewList"),
+        
+    ),
+);
+array_push($menu_control, $review_menu);
+
 
 
 $lookbook_menu = array(
