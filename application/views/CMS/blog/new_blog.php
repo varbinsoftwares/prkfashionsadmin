@@ -131,5 +131,5 @@ if ($checklogin['show']) {
     <?php
 }
 ?>
-                })
+                });
 </script>

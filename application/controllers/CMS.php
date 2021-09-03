@@ -134,6 +134,8 @@ class CMS extends CI_Controller {
                 "category_id" => $this->input->post("category_id"),
                 "title" => $this->input->post("title"),
                 "description" => $this->input->post("description"),
+                "blog_date" => date("m-d-Y"),
+                "blog_time" => date("g:i:s a"),
             );
 
             $this->Curd_model->insert('style_tips', $blogArray);
@@ -153,8 +155,6 @@ class CMS extends CI_Controller {
         $data = array();
         $blog_data = $this->Curd_model->get_single('style_tips', $blog_id);
         $data['blog_data'] = $blog_data;
-
-
 
         $tag_data = $this->Curd_model->get('style_tags');
         $tags = [];

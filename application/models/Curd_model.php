@@ -30,7 +30,7 @@ class Curd_model extends CI_Model {
         $this->db->where('id', $id);
         $query = $this->db->get($table);
         $data = $query->row();
-        
+        return $data;
     }
     public function edit($table){
         $this->db->where('id', $id);

@@ -62,7 +62,7 @@ $this->load->view('layout/topmenu');
                                         <i class="fa fa-plus"></i>
                                         <span>Add files...</span>
                                     
-                                        <input type="file"value="<?php echo $slide['picture'];?>" name="picture" >
+                                        <input type="file"value="" name="picture" >
                                     </span>
 
                                    </div>
