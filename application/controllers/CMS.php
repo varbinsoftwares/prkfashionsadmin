@@ -14,7 +14,7 @@ class CMS extends CI_Controller {
             $this->user_id = 0;
         }
         $this->user_id = $this->session->userdata('logged_in')['login_id'];
-        $this->user_type = $this->session->logged_in['user_type'];
+        //$this->user_type = $this->session->logged_in['user_type'];
     }
 
     public function blogCategories() {
@@ -146,9 +146,22 @@ class CMS extends CI_Controller {
     }
 
     function blogList() {
-        $blog_data = $this->Curd_model->get('style_tips', 'desc');
+        $blog_data = $this->Curd_model->get('style_tips', 'asc');
         $data['blog_data'] = $blog_data;
         $this->load->view('CMS/blog/blog_list', $data);
+    }
+
+    function blogComment(){
+        $blog_comment = $this->Curd_model->get('user_comment', 'asc');
+        $data['blog_comment'] = $blog_comment;
+
+        if (isset($_POST['delete'])) {
+            $did= $this->input->post('del');
+            $this->db->where('id', $did);
+            $delete= $this->db->delete('user_comment');
+           
+        }
+        $this->load->view('CMS/blog/blog_comment', $data);
     }
 
     function blogDetails($blog_id) {

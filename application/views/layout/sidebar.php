@@ -67,6 +67,7 @@ $blog_menu = array(
         "Add New" => site_url("CMS/newBlog"),
         "Blog List" => site_url("CMS/blogList"),
         "Tags" => site_url("CMS/blogTag"),
+        "Blog comments" => site_url("CMS/blogComment"),
     ),
 );
 array_push($menu_control, $blog_menu);
