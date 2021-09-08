@@ -17,6 +17,7 @@ $product_menu = array(
         "Categories" => site_url("ProductManager/categories"),
         "Product Out Of Stock" => site_url("ProductManager/productReportStockOut"),
         "Product Removed" => site_url("ProductManager/productReportTrash"),
+        "Product Attribute" => site_url("ProductAttribute/attributeList"),
         
 //        "Items Prices" => site_url("ProductManager/categoryItems"),
 //        "Product Sorting" => site_url("ProductManager/productSorting"),
@@ -74,7 +75,7 @@ array_push($menu_control, $blog_menu);
 
 $review_menu = array(
     "title" => "Review Management",
-    "icon" => "fa fa-edit",
+    "icon" => "fa fa-star",
     "active" => "",
     "sub_menu" => array(
         "All Reviews" => site_url("CMS/reviewList"),
@@ -99,7 +100,7 @@ array_push($menu_control, $lookbook_menu);
 
 $slide_menu = array(
     "title" => "Slider Management",
-    "icon" => "fa fa-image",
+    "icon" => "fa fa-sliders",
     "active" => "",
     "sub_menu" => array(
         "Add slider" => site_url("CMS/AddSlide"),

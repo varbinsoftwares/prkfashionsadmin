@@ -98,14 +98,14 @@ $this->load->view('layout/topmenu');
     
                             <label class="control-label">Status:</label>
                                 <div class="m-b-15">
-                                   <input type="radio"  value="<?php echo $slide['status'];?>"  name="status" value=""   required="" <?php echo ($slide['status']== 'Active')? 'checked': ''; ?> >  Active <br>
-                                   <input type="radio"  value="<?php echo $slide['status'];?>" name="status" value="" required="" <?php echo ($slide['status']== 'Block')? 'checked': ''; ?> >  Block
+                                   <input type="radio"  value="Active"  name="status"    required="" <?php echo ($slide['status']== 'Active')? 'checked': ''; ?> >  Active <br>
+                                   <input type="radio" value="Block" value="<?php echo $slide['status'];?>" name="status"  required="" <?php echo ($slide['status']== 'Block')? 'checked': ''; ?> >  Block
                                 </div>  
                             
                            </div>
                            
                        </div>
-                    
+                     
 
                         <!-- end email content -->
                         <div class="colspan-2">
