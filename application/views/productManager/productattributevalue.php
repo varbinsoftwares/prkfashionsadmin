@@ -42,10 +42,15 @@ $this->load->view('layout/topmenu');
                    <?php foreach($attribute_value as $key =>$vdata) {?>
                     
                     <tr> 
+                        
                         <td><?php echo $vdata['id']; ?></td>
                         <td><?php echo $vdata['attribute_value']; ?> </td>
-                        <td> <button type="button" class="btn btn-sm btn-primary"> <i class="fa fa-edit"></i> </button>
-                            <button type="button" class="btn btn-sm btn-danger"> <i class="fa fa-trash"></i> </button>
+                        <form action="" method="POST">
+                        <td> <button type="button" data-toggle="modal" data-target="#edit_item" class="btn btn-sm btn-primary btnedit"> <i class="fa fa-edit"></i> </button>
+                        
+                            <input type="hidden" name="did" value="<?php echo $vdata['id']; ?>">
+                            <button type="submit" name="adel" class="btn btn-sm btn-danger btndel" onclick="return confirm('Do you want to delete this value <?php echo $vdata['attribute_value']; ?>') "> <i class="fa fa-trash"></i> </a>
+                        </form>   
                         </td>
                     </tr>
                     <?php } ?>
@@ -59,29 +64,26 @@ $this->load->view('layout/topmenu');
 <!-- end #content -->
 
 <!-- Modal -->
+
 <div class="modal fade" id="edit_item" tabindex="-1" role="dialog" aria-labelledby="changePassword">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <form action="#" method="post">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Edit Attribute</h4>
+                    <h4 class="modal-title" id="myModalLabel">EDIT Attribute Value</h4>
                 </div>
                 <div class="modal-body">
-                   
-                        <div class="form-group">
-                                 
-                                     <input type="hidden" name="update_id" id="update_id" value="">
-                                    <label for="attribute name">Attribute Name</label>
-                                    <input type="text" name="attribute" id ="attr" class="form-control" value="" required="" placeholder="">
-
-                                    <label for="attribute name">Widget</label>
-                                    <input type="text" name="widget" id="widg" class="form-control" value="" required="" placeholder="">
-                       </div>
                     
+                        <div class="form-group">
+                        
+                                      <input type="hidden" id="uid" name="uid" value="">
+                                    <label for="">Attribute Value</label>
+                                    <input type="text" id="attvalue" name="avalue" class="form-control"  required="" placeholder="Attribute Value">
+                       </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" name="editData" class="btn btn-primary editbtn">Update</button>
+                    <button type="submit" name="updateData" class="btn btn-primary">Update</button>
 
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
@@ -124,56 +126,18 @@ $this->load->view('layout/footer');
 <script>
 
 $(document).ready (function(){
-    $('.editbtn').on('click', function(){
+    $('.btnedit').on('click', function(){
 
-    
-  $('#edit_item').modal('show');
-
-  $tr =$(this).closest('tr');
-  var data =$tr.childern("td").map(function(){
-      return $(this).text();
-  }).get();
-  console.log(data);
-
-  $('#update_id').val(data[0]);
-  $('#attr').val(data[1]);
-  $('#widg').val(data[2]);
-
+  var currentrow = $(this).closest("tr");
+  var data1 =currentrow.find("td:eq(0)").text();
+  var data2 =currentrow.find("td:eq(1)").text();
+ 
+  $('#uid').val(data1);
+  $('#attvalue').val(data2);
+  
  });
 });
 
-    $(function () {
 
 
-        $('#tags').tagit({
-            availableTags: ["c++", "java", "php", "javascript", "ruby", "python", "c"]
-        });
-
-
-        $('.edit_detail').click(function (e) {
-            e.stopPropagation();
-            e.preventDefault();
-            $($(this).prev()).editable('toggle');
-        });
-
-        $(".editable").editable();
-
-
-
-<?php
-$checklogin = $this->session->flashdata('checklogin');
-if ($checklogin['show']) {
-    ?>
-            $.gritter.add({
-                title: "<?php echo $checklogin['title']; ?>",
-                text: "<?php echo $checklogin['text']; ?>",
-                image: '<?php echo base_url(); ?>assets/emoji/<?php echo $checklogin['icon']; ?>',
-                            sticky: true,
-                            time: '',
-                            class_name: 'my-sticky-class '
-                        });
-    <?php
-}
-?>
-                })
 </script>

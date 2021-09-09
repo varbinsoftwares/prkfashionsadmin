@@ -47,7 +47,7 @@ class ProductAttribute extends CI_Controller {
         }
 
         if (isset($_POST['editData'])) {
-            $id= $this->input->post('attrid');
+            $id= $this->input->post('update_id');
             $editarray=array();
             $editarray= array(
               "attribute" => $this->input->post('attribute'),
@@ -86,7 +86,7 @@ class ProductAttribute extends CI_Controller {
             $this->db->where('id', $id);
             $attribute = $this->Curd_model->get('category_attribute');
             $data['attribute'] = $attribute;
-
+            
             if(isset($_POST["submitData"])){
                 $insertArray = array(
                     "attribute_id"=>$id,
@@ -96,6 +96,24 @@ class ProductAttribute extends CI_Controller {
                 redirect(site_url("ProductAttribute/attributeValue/$id"));
             }
 
+            if(isset($_POST["updateData"])){
+                $uid= $this->input->post('uid');
+                
+                $updateArray = array(
+                    "attribute_value"=>$this->input->post("avalue"),
+                );
+                $this->db->where('id', $uid);
+                $this->db->update("category_attribute_value", $updateArray);
+                redirect(site_url("ProductAttribute/attributeValue/$id"));
+            }
+
+            if(isset($_POST["adel"])){
+                
+                $did= $this->input->post('did');
+                $this->db->where('id', $did);
+                $this->db->delete("category_attribute_value");
+                redirect(site_url("ProductAttribute/attributeValue/$id"));
+            }
 
         $this->load->view('productManager/productattributevalue', $data);
     }

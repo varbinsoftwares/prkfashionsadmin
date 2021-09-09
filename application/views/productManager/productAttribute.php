@@ -56,11 +56,9 @@ $this->load->view('layout/topmenu');
                             <td><?php echo $value['attribute'] ;?></td>
                             <td><?php echo $value['widget'] ;?></td>
                             <td>
-                          
-                            
                                <span> <a href="<?php echo site_url('ProductAttribute/attributeValue/'. $value['id']); ?>" >configure terms <i class="fa fa-edit"></i> </a> </span>
                             </td>
-                            <td> <button type="submit" data-toggle="modal" data-target="#edit_item" name="att_edit" class="btn btn-sm btn-primary"> <i class="fa fa-edit"></i> </button> </td>
+                            <td> <button type="submit" data-toggle="modal" data-target="#edit_item" name="att_edit" class="btn btn-sm btn-primary btnedit"> <i class="fa fa-edit"></i> </button> </td>
                         </tr>
 
                         <?php  } ?>
@@ -89,10 +87,10 @@ $this->load->view('layout/topmenu');
                                  
                                      <input type="hidden" name="update_id" id="update_id" value="<?php echo $value['id'] ; ?>">
                                     <label for="attribute name">Attribute Name</label>
-                                    <input type="text" name="attribute" id ="attr" class="form-control" value="<?php echo $value['attribute'] ; ?>" required="" placeholder="">
+                                    <input type="text" name="attribute" id ="attr" class="form-control" value="" required="" placeholder="">
 
                                     <label for="attribute name">Widget</label>
-                                    <input type="text" name="widget" id="widg" class="form-control" value="<?php echo $value['widget'] ; ?>" required="" placeholder="">
+                                    <input type="text" name="widget" id="widg" value="" class="form-control" required="" placeholder="">
                        </div>
                     
                 </div>
@@ -172,56 +170,17 @@ $this->load->view('layout/footer');
 <script>
 
 $(document).ready (function(){
-    $('.editbtn').on('click', function(){
+    $(".btnedit").on('click', function(){
 
-    
-  $('#edit_item').modal('show');
+  var currentrow = $(this).closest("tr");
+  var data1 =currentrow.find("td:eq(0)").text();
+  var data2 =currentrow.find("td:eq(1)").text();
+  var data3 =currentrow.find("td:eq(2)").text();
 
-  $tr =$(this).closest('tr');
-  var data =$tr.childern("td").map(function(){
-      return $(this).text();
-  }).get();
-  console.log(data);
 
-  $('#update_id').val(data[0]);
-  $('#attr').val(data[1]);
-  $('#widg').val(data[2]);
-
+  $('#update_id').val(data1);
+  $('#attr').val(data2);
+  $('#widg').val(data3);
  });
 });
-
-    $(function () {
-
-
-        $('#tags').tagit({
-            availableTags: ["c++", "java", "php", "javascript", "ruby", "python", "c"]
-        });
-
-
-        $('.edit_detail').click(function (e) {
-            e.stopPropagation();
-            e.preventDefault();
-            $($(this).prev()).editable('toggle');
-        });
-
-        $(".editable").editable();
-
-
-
-<?php
-$checklogin = $this->session->flashdata('checklogin');
-if ($checklogin['show']) {
-    ?>
-            $.gritter.add({
-                title: "<?php echo $checklogin['title']; ?>",
-                text: "<?php echo $checklogin['text']; ?>",
-                image: '<?php echo base_url(); ?>assets/emoji/<?php echo $checklogin['icon']; ?>',
-                            sticky: true,
-                            time: '',
-                            class_name: 'my-sticky-class '
-                        });
-    <?php
-}
-?>
-                })
 </script>
