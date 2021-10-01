@@ -52,7 +52,7 @@ class Migration extends CI_Controller {
         } else {
             $this->db->query('ALTER TABLE `user_order` ADD `coupon_discount` VARCHAR(100) NOT NULL AFTER `credit_price`;');
         }
-        if ($this->db->field_exists('coupon_discount', 'user_order')) {
+        if ($this->db->field_exists('coupon_id', 'user_order')) {
             // table exists
         } else {
             $this->db->query('ALTER TABLE `user_order` ADD `coupon_id` VARCHAR(100) NOT NULL AFTER `coupon_discount`;');
