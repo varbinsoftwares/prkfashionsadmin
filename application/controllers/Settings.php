@@ -376,15 +376,15 @@ class Configuration extends CI_Controller {
     }
 
     public function migration() {
-        if ($this->db->table_exists('mailchimp_list')) {
+        if ($this->db->table_exists('coupon_setting')) {
             // table exists
         } else {
             $this->db->query('CREATE TABLE IF NOT EXISTS `mailchimp_list` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `m_id` varchar(100) DEFAULT NULL,
-  `name` varchar(250) DEFAULT NULL,
-  `datetime` varchar(100) DEFAULT NULL,
-  `member_count` varchar(50) NOT NULL,
+  `coupon_code` varchar(100) DEFAULT NULL,
+  `coupon_type` varchar(250) DEFAULT NULL,
+  `valid_till` varchar(100) DEFAULT NULL,
+  `statust` varchar(50) NOT NULL,
   `display_index` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;');
