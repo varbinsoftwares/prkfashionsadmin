@@ -452,6 +452,9 @@ class Api extends REST_Controller {
     }
 
     function getProductVarients_get($base_product_id, $product_id) {
+        $this->config->load('rest', TRUE);
+        header('Access-Control-Allow-Origin: *');
+        header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
         $response = $this->Product_model->productVariantsBaseProduct($base_product_id, $product_id);
         $this->response($response);
     }
