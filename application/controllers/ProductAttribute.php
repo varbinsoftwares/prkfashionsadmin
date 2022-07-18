@@ -29,11 +29,10 @@ class ProductAttribute extends CI_Controller {
         $data['title'] = "Product Attributes";
         $data['description'] = "";
         $data['form_title'] = "Create Attribute";
-        $data['table_name'] = 'category_attribute';
+        $data['table_name'] = 'attribute';
         $form_attr = array(
-            "attribute" => array("title" => "Attribute Name", "required" => true, "place_holder" => "Attribute Name", "type" => "text", "default" => ""),
+            "title" => array("title" => "Attribute Name", "required" => true, "place_holder" => "Attribute Name", "type" => "text", "default" => ""),
             "widget" => array("title" => "Widget", "required" => false, "place_holder" => "widget", "type" => "text", "default" => ""),
-            "category_id" => array("title" => "", "required" => false, "place_holder" => "", "type" => "hidden", "default" => ""),
             "display_index" => array("title" => "", "required" => false, "place_holder" => "", "type" => "hidden", "default" => ""),
         );
 
@@ -42,7 +41,7 @@ class ProductAttribute extends CI_Controller {
             foreach ($form_attr as $key => $value) {
                 $postarray[$key] = $this->input->post($key);
             }
-            $this->Curd_model->insert('category_attribute', $postarray);
+            $this->Curd_model->insert('attribute', $postarray);
             redirect("ProductAttribute/attributeList");
         }
 
@@ -50,25 +49,25 @@ class ProductAttribute extends CI_Controller {
             $id= $this->input->post('update_id');
             $editarray=array();
             $editarray= array(
-              "attribute" => $this->input->post('attribute'),
+              "title" => $this->input->post('title'),
               "widget" =>$this->input->post('widget'),
             );
             $this->db->where('id', $id);
-            $this->db->update('category_attribute', $editarray);
+            $this->db->update('attribute', $editarray);
             redirect("ProductAttribute/attributeList");
         }
 
 
-        $attribute_data = $this->Curd_model->get('category_attribute');
+        $attribute_data = $this->Curd_model->get('attribute');
         $data['list_data'] = $attribute_data;
 
-        $attribute_value = $this->Curd_model->get('category_attribute_value');
+        $attribute_value = $this->Curd_model->get('attribute_value');
         $data['attribute_value'] = $attribute_value;
 
 
         $fields = array(
             "id" => array("title" => "ID#", "width" => "100px"),
-            "attribute" => array("title" => "Attribute Name", "width" => "15%"),
+            "title" => array("title" => "Attribute Name", "width" => "15%"),
            
         );
 
@@ -80,7 +79,7 @@ class ProductAttribute extends CI_Controller {
     function attributeValue($id){
 
             $this->db->where('attribute_id', $id);
-            $attribute_value = $this->Curd_model->get('category_attribute_value');
+            $attribute_value = $this->Curd_model->get('attribute_value');
             $data['attribute_value'] = $attribute_value;
 
             $this->db->where('id', $id);
@@ -92,7 +91,7 @@ class ProductAttribute extends CI_Controller {
                     "attribute_id"=>$id,
                     "attribute_value"=>$this->input->post("avalue"),
                 );
-                $this->db->insert("category_attribute_value", $insertArray);
+                $this->db->insert("attribute_value", $insertArray);
                 redirect(site_url("ProductAttribute/attributeValue/$id"));
             }
 
@@ -103,7 +102,7 @@ class ProductAttribute extends CI_Controller {
                     "attribute_value"=>$this->input->post("avalue"),
                 );
                 $this->db->where('id', $uid);
-                $this->db->update("category_attribute_value", $updateArray);
+                $this->db->update("attribute_value", $updateArray);
                 redirect(site_url("ProductAttribute/attributeValue/$id"));
             }
 
@@ -111,7 +110,7 @@ class ProductAttribute extends CI_Controller {
                 
                 $did= $this->input->post('did');
                 $this->db->where('id', $did);
-                $this->db->delete("category_attribute_value");
+                $this->db->delete("attribute_value");
                 redirect(site_url("ProductAttribute/attributeValue/$id"));
             }
 

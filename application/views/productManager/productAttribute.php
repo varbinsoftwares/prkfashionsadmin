@@ -53,7 +53,7 @@ $this->load->view('layout/topmenu');
                         <tr>
                         
                             <td><?php echo $value['id'] ;?></td>
-                            <td><?php echo $value['attribute'] ;?></td>
+                            <td><?php echo $value['title'] ;?></td>
                             <td><?php echo $value['widget'] ;?></td>
                             <td>
                                <span> <a href="<?php echo site_url('ProductAttribute/attributeValue/'. $value['id']); ?>" >configure terms <i class="fa fa-edit"></i> </a> </span>
