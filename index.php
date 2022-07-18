@@ -53,8 +53,14 @@
  *
  * NOTE: If you change these, also change the error_reporting() code below
  */
-	define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
-
+//	define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
+$checkdebug = strpos($baselink, '192.168') ? TRUE : FALSE;
+//$checkdebug = TRUE;
+if ($checkdebug) {
+    define('ENVIRONMENT', 'development');
+} else{
+    define('ENVIRONMENT', 'production');
+}
 /*
  *---------------------------------------------------------------
  * ERROR REPORTING
