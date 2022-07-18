@@ -101,11 +101,8 @@ class Api extends REST_Controller {
         $this->config->load('rest', TRUE);
         $bookingarray = $this->post();
 
-
         $cartdata = $this->post("cartdata");
         $cartjson = json_decode($cartdata);
-
-
 
         $web_order = array(
             'name' => $this->post('name'),
@@ -119,8 +116,8 @@ class Api extends REST_Controller {
             'total_price' => $this->post('total'),
             'payment_mode' => $this->post('payment_method'),
             'status' => "Processing",
-            'user_id' => $this->post('user_id') ? $this->post('user_id') :'Guest',
-            'order_key' => $this->post('user_id') ? $this->post('user_id') :'Guest',
+            'user_id' => $this->post('user_id') ? $this->post('user_id') : 'Guest',
+            'order_key' => $this->post('user_id') ? $this->post('user_id') : 'Guest',
         );
         $this->db->insert('user_order', $web_order);
 
@@ -139,7 +136,7 @@ class Api extends REST_Controller {
             'c_time' => date('H:i:s'),
             'order_id' => $last_id,
             'status' => "Order Confirmed",
-            'user_id' => $this->post('user_id') ? $this->post('user_id') :'Guest',
+            'user_id' => $this->post('user_id') ? $this->post('user_id') : 'Guest',
             'remark' => "Order Confirmed By Using COD,  Waiting For Payment",
         );
         $this->db->insert('user_order_status', $order_status_data);
@@ -285,7 +282,6 @@ class Api extends REST_Controller {
         $cartdata = $query->result_array();
         $orderdetails['cart_data'] = $cartdata;
 
-
         $this->response($orderdetails);
     }
 
@@ -294,7 +290,7 @@ class Api extends REST_Controller {
 
     function category_get() {
         $cats = [65, 67, 69, 70, 71, 73];
-        $cats = [1,2,3,4,5,6,7,8];
+        $cats = [1, 2, 3, 4, 5, 6, 7, 8];
         $this->config->load('rest', TRUE);
         $this->db->where("parent_id=0");
         $query = $this->db->get("category");
@@ -452,6 +448,11 @@ class Api extends REST_Controller {
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($payload));
         $response = curl_exec($ch);
         curl_close($ch);
+        $this->response($response);
+    }
+
+    function getProductVarients_get($base_product_id, $product_id) {
+        $response = $this->Product_model->productVariantsBaseProduct($base_product_id, $product_id);
         $this->response($response);
     }
 

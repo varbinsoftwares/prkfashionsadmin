@@ -21,8 +21,6 @@ class Configuration extends CI_Controller {
         $systemlog = $query->row();
         $data['configuration_report'] = $systemlog;
 
-
-
         if (isset($_POST['update_data'])) {
             $confArray = array(
                 "email_header" => $this->input->post("email_header"),

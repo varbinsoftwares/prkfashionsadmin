@@ -185,15 +185,11 @@
 
                         <?php echo $product->title; ?> 
                         <br />
-                        <small style="font-size: 15px;">(<?php echo $product->sku; ?>)</small>
+                        <small style="font-size: 15px;"><?php echo $product->sku; ?>  (<?php echo $product->attrs; ?>)</small>
 
 
                   
-                    
-
-
-
-
+              
 
                     </td>
 

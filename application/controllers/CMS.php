@@ -22,7 +22,7 @@ class CMS extends CI_Controller {
         $data['title'] = "Blog Categories";
         $data['description'] = "Blog Categories";
         $data['form_title'] = "Add Category";
-        $data['table_name'] = 'style_category'; 
+        $data['table_name'] = 'style_category';
         $form_attr = array(
             "category_name" => array("title" => "Category Name", "required" => true, "place_holder" => "Category Name", "type" => "text", "default" => ""),
             "parent_id" => array("title" => "", "required" => false, "place_holder" => "", "type" => "hidden", "default" => ""),
@@ -96,7 +96,6 @@ class CMS extends CI_Controller {
         }
         $data['tags'] = $tags;
 
-
         $categories_data = $this->Curd_model->get('style_category');
         $data['categories'] = $categories_data;
 
@@ -151,15 +150,14 @@ class CMS extends CI_Controller {
         $this->load->view('CMS/blog/blog_list', $data);
     }
 
-    function blogComment(){
+    function blogComment() {
         $blog_comment = $this->Curd_model->get('user_comment', 'asc');
         $data['blog_comment'] = $blog_comment;
 
         if (isset($_POST['delete'])) {
-            $did= $this->input->post('del');
+            $did = $this->input->post('del');
             $this->db->where('id', $did);
-            $delete= $this->db->delete('user_comment');
-           
+            $delete = $this->db->delete('user_comment');
         }
         $this->load->view('CMS/blog/blog_comment', $data);
     }
@@ -175,7 +173,6 @@ class CMS extends CI_Controller {
             array_push($tags, $value['tag_name']);
         }
         $data['tags'] = $tags;
-
 
         $categories_data = $this->Curd_model->get('style_category');
         $data['categories'] = $categories_data;
@@ -311,36 +308,32 @@ class CMS extends CI_Controller {
         $this->load->view('CMS/lookbook/new_lookbook', $data);
     }
 
-    function reviewList(){
+    function reviewList() {
 
         $review_data = $this->Curd_model->get('product_review', 'desc');
         $data['review_data'] = $review_data;
-        $this->load->view('CMS/Review/review_list' , $data);
-
+        $this->load->view('CMS/Review/review_list', $data);
     }
-    function reviewAction($id){
-         $sid= $id;
-         $astatus = $this->input->post("appr");
-         $rstatus = $this->input->post("rjt");
-         if (isset($_POST['approve'])) {
-            $data=array('status'=> $astatus);
-                     $this->db->where('id',$sid);
-            $result = $this->db->update('product_review',$data);
+
+    function reviewAction($id) {
+        $sid = $id;
+        $astatus = $this->input->post("appr");
+        $rstatus = $this->input->post("rjt");
+        if (isset($_POST['approve'])) {
+            $data = array('status' => $astatus);
+            $this->db->where('id', $sid);
+            $result = $this->db->update('product_review', $data);
 
             redirect('CMS/reviewList');
-                    
-         }
-         if (isset($_POST['reject'])) {
-            $data=array('status'=> $rstatus);
-                    $this->db->where('id',$sid);
-            $result = $this->db->update('product_review',$data);   
+        }
+        if (isset($_POST['reject'])) {
+            $data = array('status' => $rstatus);
+            $this->db->where('id', $sid);
+            $result = $this->db->update('product_review', $data);
 
             redirect('CMS/reviewList');
-         }
-         
-     }
-    
-    
+        }
+    }
 
     function lookbookList() {
         $blog_data = $this->Curd_model->get('lookbook', 'desc');
@@ -394,22 +387,22 @@ class CMS extends CI_Controller {
         }
 
         $this->load->view('CMS/lookbook/lookbook_edit', $data);
-    } 
+    }
 
-    public function AddSlide(){
+    public function AddSlide() {
 
-        $data= array();
+        $data = array();
 
-       $line1= $this->input->post("line1");
-       $line2= $this->input->post("line2");
-       $btn_title= $this->input->post("btn_title");
-       $btn_link= $this->input->post("btn_link");
-       $status= $this->input->post("status");
-       $time= $this->input->post("time");
-       $date= $this->input->post("date");
-       $index= $this->input->post("index");
-       $config['upload_path'] = 'assets/slider_images';
-       $config['allowed_types'] = '*';
+        $line1 = $this->input->post("line1");
+        $line2 = $this->input->post("line2");
+        $btn_title = $this->input->post("btn_title");
+        $btn_link = $this->input->post("btn_link");
+        $status = $this->input->post("status");
+        $time = $this->input->post("time");
+        $date = $this->input->post("date");
+        $index = $this->input->post("index");
+        $config['upload_path'] = 'assets/slider_images';
+        $config['allowed_types'] = '*';
 
         if (isset($_POST['submit_data'])) {
             $picture = '';
@@ -418,7 +411,7 @@ class CMS extends CI_Controller {
                 $config['overwrite'] = TRUE;
                 $ext1 = explode('.', $_FILES['picture']['name']);
                 $ext = strtolower(end($ext1));
-                $file_newname = $temp1 ;
+                $file_newname = $temp1;
                 $picture = $file_newname;
                 $config['file_name'] = $file_newname;
                 //Load upload library and initialize configuration
@@ -439,16 +432,16 @@ class CMS extends CI_Controller {
                 "button_title" => $btn_title,
                 "button_link" => $btn_link,
                 "status" => $status,
-                "index"=> $index,
+                "index" => $index,
                 "active_time" => $time,
                 "active_date" => $date,
             );
 
-           $data['slideArray']= $this->Curd_model->insert('settings_slider', $slideArray,);
+            $data['slideArray'] = $this->Curd_model->insert('settings_slider', $slideArray,);
             redirect("CMS/AddSlide");
         }
 
-        
+
         $this->load->view('CMS/Home_slider/AddSlide');
     }
 
@@ -457,29 +450,31 @@ class CMS extends CI_Controller {
         $data['slide_data'] = $slide_data;
         $this->load->view('CMS/Home_slider/Sliders', $data);
     }
-    public  function sliderEdit($id) {
-       $sid=$id;
-      $this->db->where('id', $sid);
-      $query = $this->db->get('settings_slider');
-      $slide = $query->row_array();
-      $data=array();
-      $data['slide']=$slide;
-      $this->load->view('CMS/Home_slider/EditSlide', $data);
+
+    public function sliderEdit($id) {
+        $sid = $id;
+        $this->db->where('id', $sid);
+        $query = $this->db->get('settings_slider');
+        $slide = $query->row_array();
+        $data = array();
+        $data['slide'] = $slide;
+        $this->load->view('CMS/Home_slider/EditSlide', $data);
     }
-    public function UpdateSlide($id){
 
-        $data= array();
+    public function UpdateSlide($id) {
 
-       $line1= $this->input->post("line1");
-       $line2= $this->input->post("line2");
-       $btn_title= $this->input->post("btn_title");
-       $btn_link= $this->input->post("btn_link");
-       $status= $this->input->post("status");
-       $time= $this->input->post("time");
-       $date= $this->input->post("date");
-       $index= $this->input->post("index");
-       $config['upload_path'] = 'assets/slider_images';
-       $config['allowed_types'] = '*';
+        $data = array();
+
+        $line1 = $this->input->post("line1");
+        $line2 = $this->input->post("line2");
+        $btn_title = $this->input->post("btn_title");
+        $btn_link = $this->input->post("btn_link");
+        $status = $this->input->post("status");
+        $time = $this->input->post("time");
+        $date = $this->input->post("date");
+        $index = $this->input->post("index");
+        $config['upload_path'] = 'assets/slider_images';
+        $config['allowed_types'] = '*';
 
         if (isset($_POST['update'])) {
             $picture = '';
@@ -509,29 +504,29 @@ class CMS extends CI_Controller {
                 "button_title" => $btn_title,
                 "button_link" => $btn_link,
                 "status" => $status,
-                "index"=> $index,
+                "index" => $index,
                 "active_time" => $time,
                 "active_date" => $date,
             );
-                $this->db->where('id', $id);
-           $data['slideArray']= $this->db->update('settings_slider', $slideArray);
+            $this->db->where('id', $id);
+            $data['slideArray'] = $this->db->update('settings_slider', $slideArray);
             redirect("CMS/sliderList");
         }
-
     }
-    public function deleteSlide($id){
- $confirm=" <script type=text/javascript>
+
+    public function deleteSlide($id) {
+        $confirm = " <script type=text/javascript>
   var x= confirm('Are you sure to delete record?')
   if (x){
       return true;
   } 
   </script>";
-        $sid=$id;
-    if($confirm){
-        $this->db->where('id', $sid);
-       $delete= $this->db->delete('settings_slider');
-        redirect("CMS/sliderList");
-    }
+        $sid = $id;
+        if ($confirm) {
+            $this->db->where('id', $sid);
+            $delete = $this->db->delete('settings_slider');
+            redirect("CMS/sliderList");
+        }
     }
 
     public function socialLink() {
@@ -569,15 +564,14 @@ class CMS extends CI_Controller {
             "LinkedIn" => array("title" => "LinkedIn", "icon" => "", "display_index" => 8),
         );
         foreach ($socialLinks as $sskey => $ssvalue) {
-            
+
             $this->db->where('title', $sskey);
             $query = $this->db->get('conf_social_link');
             $systemlog = $query->result();
-            if($systemlog){
+            if ($systemlog) {
                 
-            }
-            else{
-                
+            } else {
+
                 unset($ssvalue["icon"]);
                 $this->Curd_model->insert('conf_social_link', $ssvalue);
             }
@@ -587,8 +581,8 @@ class CMS extends CI_Controller {
         $data['list_data'] = $categories_data;
 
         $fields = array(
-            "title" => array("title" => "Social Account", "width" => "200px", "edit"=>0),
-            "link_url" => array("title" => "URL", "width" => "300px", "edit"=>1),
+            "title" => array("title" => "Social Account", "width" => "200px", "edit" => 0),
+            "link_url" => array("title" => "URL", "width" => "300px", "edit" => 1),
         );
 
         $data['fields'] = $fields;
@@ -641,7 +635,7 @@ class CMS extends CI_Controller {
         $data['site_data'] = $blog_data;
         if (isset($_POST['update_data'])) {
             $blogArray = array(
-                 "site_name" => $this->input->post("site_name"),
+                "site_name" => $this->input->post("site_name"),
                 "seo_keywords" => $this->input->post("keyword"),
                 "seo_title" => $this->input->post("title"),
                 "seo_desc" => $this->input->post("description"),
@@ -653,6 +647,26 @@ class CMS extends CI_Controller {
         }
 
         $this->load->view('configuration/site_update', $data);
+    }
+
+    public function attributeSetting() {
+        $data = array();
+        $data['title'] = "Set Product Attributes Category";
+        $data['description'] = "Product Attributes";
+        $data['form_title'] = "Product Attributes";
+        $data['table_name'] = "attribute";
+        $data["link"] = "CMS/attributeSetting";
+        $form_attr = array(
+            "review" => array("title" => "Review", "width" => "250px", "required" => true, "place_holder" => "Review", "type" => "textarea", "default" => ""),
+            "name" => array("title" => "Name", "width" => "300px", "required" => true, "place_holder" => "Name", "type" => "text", "default" => ""),
+            "source" => array("title" => "Source", "required" => false, "place_holder" => "Source", "type" => "text", "default" => ""),
+            "city_country" => array("title" => "City/Country", "width" => "300px", "required" => true, "place_holder" => "City/Country", "type" => "text", "default" => ""),
+            "r_date" => array("title" => "Date", "required" => false, "place_holder" => "Date", "type" => "text", "default" => ""),
+        );
+        $data['form_attr'] = $form_attr;
+        $rdata = $this->Curd_model->curdForm($data);
+
+        $this->load->view('layout/curd', $rdata);
     }
 
 }

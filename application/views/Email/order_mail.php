@@ -250,7 +250,7 @@
 
                         <td style="width: 200px;">
                             <?php echo $product->title; ?><br/>
-                            <small style="font-size: 10px;">(<?php echo $product->sku; ?>)</small>
+                            <small style="font-size: 10px;"><?php echo $product->sku; ?> (<?php echo $product->attr; ?>)</small>
 
 
                         </td>

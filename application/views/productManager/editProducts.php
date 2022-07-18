@@ -20,7 +20,8 @@ $this->load->view('layout/topmenu');
 <!-- Main content -->
 <section class="content" ng-controller="productController">
     <div class="well well-sm">
-                <a class="btn btn-success btn-lg" href="<?php echo site_url('ProductManager/add_product')?>">Add New Product</a>
+        <a class="btn btn-success btn-lg" href="<?php echo site_url('ProductManager/add_product') ?>">Add New Product</a>
+        <a class="btn btn-warning btn-lg pull-right" href="<?php echo site_url('ProductManager/veriant_product/'.$product_obj->id) ?>">Add Variant Product</a>
 
     </div>
     <div class="">
