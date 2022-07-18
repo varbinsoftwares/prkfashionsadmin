@@ -52,7 +52,7 @@ $this->load->view('layout/topmenu');
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Description</label>
-                        <textarea class="form-control"  name="description" style="height:100px"><?php echo $product_obj->description; ?></textarea>
+                        <textarea class="form-control" id="description"  name="description" style="height:100px"><?php echo $product_obj->description; ?></textarea>
                     </div>
 
 
@@ -328,6 +328,14 @@ $this->load->view('layout/footer');
 
 
     })
+    
+     tinymce.init({
+        selector: '#description',
+       
+        toolbar: 'undo redo | formatpainter casechange blocks | bold italic backcolor | ' +
+          'alignleft aligncenter alignright alignjustify | ' +
+          'bullist numlist checklist outdent indent | removeformat | a11ycheck code table help'
+      });
 
 
 
