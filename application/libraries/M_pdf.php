@@ -11,7 +11,8 @@ class M_pdf {
     public function __construct($param = '"en-GB-x","A4","","",10,10,10,10,6,3')
     {
         $this->param =$param;
-        $this->pdf = new mPDF($this->param);
+      //  $this->pdf = new mPDF($this->param);
+        $this->pdf =$mpdf = new \Mpdf\Mpdf($this->param);
     }
 
 }

@@ -25,14 +25,25 @@ $islocal = false;
 
 if (strpos($baselink, '192.168')) {
     $islocal = true;
+
    
 } elseif (strpos($baselink, 'localhost')) {
     $islocal = true;
-   
+
+
     $baselinkmain = 'http://' . $baselinkurl . '/prkfashionsadmin';
 } elseif (strpos($baselink, 'localhost')) {
     $islocal = true;
     $baselinkmain = 'http://' . $baselinkurl . '/prkfashionsadmin';
+
+
+    $baselinkmain = 'http://' . $baselinkurl . '/prkfashionsadmin';
+} elseif (strpos($baselink, 'localhost')) {
+    $islocal = true;
+    $baselinkmain = 'http://' . $baselinkurl . '/prkfashionsadmin';
+
+
+
 } else {
     $baselinkmain = 'https://' . $baselinkurl . '/';
 }
