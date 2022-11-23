@@ -486,9 +486,8 @@ class ProductManager extends CI_Controller {
             $this->db->set($post_data);
 
             $this->db->where('variant_product_of', $base_product_id); //set column_name and value in which row need to update
-            $this->db->update('products'); 
+            $this->db->update('products');
             //
-           
             //Storing insertion status message.
             redirect('ProductManager/edit_product/' . $product_id);
         }
@@ -532,7 +531,7 @@ class ProductManager extends CI_Controller {
         $product_model = $this->Product_model;
         $data['product_model'] = $product_model;
         $data['product_id'] = $product_id;
-        $data['attributes'] = $product_model->attributes();
+        $data['attributes'] = $this->Product_model->attributes();
         $data['attributefunction'] = $product_model;
         $product_attributes = $product_model->productAttributes($product_id);
 
@@ -680,8 +679,10 @@ class ProductManager extends CI_Controller {
                     "attribute_id" => $attribute_id,
                     "attribute_value_id" => $attribute_values
                 );
-                if ($product_attributes) {
-
+                $this->db->where('attribute_id', $attribute_id);
+                $this->db->where('product_id', $product_id); //set column_name and value in which row need to update
+                $attr_db_query = $this->db->get('product_attribute');
+                if ($attr_db_query->result_array()) {
                     $this->db->set($productattrinsert);
                     $this->db->where('attribute_id', $attribute_id);
                     $this->db->where('product_id', $product_id); //set column_name and value in which row need to update

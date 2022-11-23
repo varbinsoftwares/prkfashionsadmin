@@ -80,7 +80,9 @@ $this->load->view('layout/topmenu');
 
                         <div class="col-md-12 row">
                             <?php
+                    
                             foreach ($attributes as $akey => $avalue) {
+                            
                                 ?>
                                 <div class="form-group">
                                     <label ><?php echo $avalue["title"] ?></label>

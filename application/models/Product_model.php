@@ -149,7 +149,7 @@ where pa.product_id=$product_id ";
                 $query = $this->db->get('attribute_value');
                 $attr_values = $query ? $query->result_array() : [];
                 $value["values"] = $attr_values;
-                $attrarray[$value["title"]] = $value;
+                $attrarray[$value["id"]] = $value;
             }
 
             return $attrarray;
